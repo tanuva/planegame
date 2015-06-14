@@ -55,6 +55,10 @@ If I had someone doing artwork, I'd like to see this in a steampunk scenario. Ma
 - Controller input (only if it doesn't block keyboard input)
 	- Input in Unity is a mess, but now it works somewhat (on OSX, no idea about Linux/Windows)
 	- Keyboard input is possible concurrently
+- Keys
+	- Analog: Roll/Pitch/Yaw
+	- Digital: Thrust (+/- keys), reset plane
+		- reset plane: rotates the plane upright and sets it 5 meters or so up from current location
 
 # Attributions
 - Cessna Model: by 3dregenerator. Free for personal and educational use.
