@@ -308,10 +308,13 @@ namespace PlaneGame
 		{
 			// Altitude calculations - we raycast downwards from the aeroplane
 			// starting a safe distance below the plane to avoid colliding with any of the plane's own colliders
-			var ray = new Ray (transform.position - Vector3.up * 1, -Vector3.up);
-			RaycastHit hit;
-			Altitude = Physics.Raycast (ray, out hit) ? hit.distance + 10 : transform.position.y;
-			UI.Altitude = Altitude;
+//			var ray = new Ray (transform.position - Vector3.up * 2, -Vector3.up);
+//			RaycastHit hit;
+//			Altitude = Physics.Raycast (ray, out hit) ? hit.distance + 2 : transform.position.y;
+//			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateAltitude(Altitude)));
+
+			// Why are we even doing this raycast complexity?
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateAltitude(transform.position.y)));
 		}
 
 		private void UpdateWheels ()
