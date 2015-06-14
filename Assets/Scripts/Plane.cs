@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 /// <summary>
@@ -7,7 +8,6 @@ using System.Collections;
 public class Plane : MonoBehaviour
 {
 	public InputHandler IH;
-	public UIController UI;
 	public Transform CenterOfMass;
 	public Transform CenterOfLift;
 	public Transform TailLiftPoint;
@@ -32,10 +32,13 @@ public class Plane : MonoBehaviour
 	public float YawDGain;
 
 	Rigidbody rigidbody;
+	GameObject _canvas;
 
 	// Use this for initialization
 	void Start ()
 	{
+		_canvas = GameObject.Find("Canvas");
+
 		rigidbody = GetComponent<Rigidbody> ();
 		rigidbody.centerOfMass = CenterOfMass.position;
 		GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 62.7f);
@@ -74,15 +77,14 @@ public class Plane : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		UI.Speed = AirSpeed;
-		UI.Throttle = IH.Axes [Axis.THROTTLE];
+		ExecuteEvents.Execute<IGUIUpdateTarget>(_canvas, null, (t, y) => t.UpdateSpeed(AirSpeed));
+		ExecuteEvents.Execute<IGUIUpdateTarget>(_canvas, null, (t, y) => t.UpdateThrottle(IH.Axes [Axis.THROTTLE]));
 	}
 
 	void ApplyEngineForces ()
 	{
-//		rigidbody.AddForceAtPosition (MaxThrust * IH.Axes [Axis.THRUST] * EngineTf.forward,
-//		                              EngineTf.position);
-		rigidbody.AddForce (MaxThrust * IH.Axes [Axis.THROTTLE] * EngineTf.forward);
+		rigidbody.AddForceAtPosition (MaxThrust * IH.Axes [Axis.THROTTLE] * EngineTf.forward, EngineTf.position);
+//		rigidbody.AddForce (MaxThrust * IH.Axes [Axis.THROTTLE] * EngineTf.forward);
 		Debug.DrawLine (EngineTf.position, 
 		                EngineTf.position + EngineTf.forward * IH.Axes [Axis.THROTTLE], 
 		                Color.green);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace PlaneGame
 {
@@ -52,6 +53,7 @@ namespace PlaneGame
 
 		private Vector3 m_LineStart;
 		private Vector3 m_LineEnd;
+		private GameObject m_Canvas;
 		private float m_OriginalDrag;         // The drag when the scene starts.
 		private float m_OriginalAngularDrag;  // The angular drag when the scene starts.
 		private float m_AeroFactor;
@@ -124,8 +126,7 @@ namespace PlaneGame
 			CalculateAltitude ();
 			UpdateWheels ();
 
-			// TODO This is SO ugly. Decouple this. (Messaging system in blog on Gamasutra!)
-			UI.Speed = ForwardSpeed;
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateSpeed(ForwardSpeed)));
 
 			// Draw a line that helps determine necessary runway lengths.
 			bool grounded = false;
@@ -214,13 +215,13 @@ namespace PlaneGame
 
 			// current engine power is just:
 			EnginePower = Throttle * m_MaxEnginePower;
-			UI.Throttle = ThrottleInput;
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateThrottle(ThrottleInput)));
 		}
 
 		private void ControlFlaps ()
 		{
 			Flaps = Mathf.Clamp01 (Mathf.Lerp (Flaps, FlapsInput, m_FlapsChangeSpeed * Time.deltaTime));
-			UI.EngineThrottle = FlapsInput;
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateEngineThrottle(FlapsInput)));
 		}
 
 		private void CalculateDrag ()
