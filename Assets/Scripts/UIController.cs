@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class UIController : MonoBehaviour
+/// <summary>
+/// UIController holds references to GUI widgets and acts as data receiver for them.
+/// </summary>
 {
 	public float Speed;
 	public Text SpeedText;

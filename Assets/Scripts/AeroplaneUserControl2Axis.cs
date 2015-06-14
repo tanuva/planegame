@@ -4,6 +4,10 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace PlaneGame
 {
+	/// <summary>
+	/// Handles input for AeroplaneController. By switching this out for another class, control mechanisms can be
+	/// altered.
+	/// </summary>
 	[RequireComponent(typeof(AeroplaneController))]
 	public class AeroplaneUserControl2Axis : MonoBehaviour
 	{

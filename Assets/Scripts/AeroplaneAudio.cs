@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace PlaneGame
 {
+	/// <summary>
+	/// Aeroplane audio plays sound samples according to plane motion.
+	/// </summary>
 	public class AeroplaneAudio : MonoBehaviour
 	{
 		[Serializable]

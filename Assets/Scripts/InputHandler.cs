@@ -12,6 +12,9 @@ public enum Axis
 	WHEELBRAKES
 }
 
+/// <summary>
+/// Handles input for my own experimental flight model.
+/// </summary>
 public class InputHandler : MonoBehaviour
 {
 	Dictionary<Axis, float> _axes = new Dictionary<Axis, float> ();

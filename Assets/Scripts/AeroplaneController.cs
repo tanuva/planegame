@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace PlaneGame
 {
+	/// <summary>
+	/// Aeroplane controller computes the plane's behavior basing on user input. This isn't necessarily a physically
+	/// accurate model, but ought to feel believable while being fun on short distance flights.
+	/// </summary>
 	[RequireComponent(typeof(Rigidbody))]
 	public class AeroplaneController : MonoBehaviour
 	{

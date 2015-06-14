@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// SmoothFollow is a camera script that follows the target smoothly. (Surprise!)
+/// </summary>
 public class SmoothFollow : MonoBehaviour
 {
 
