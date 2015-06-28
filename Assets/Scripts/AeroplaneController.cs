@@ -129,17 +129,17 @@ namespace PlaneGame
 			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateSpeed(ForwardSpeed)));
 
 			// Draw a line that helps determine necessary runway lengths.
-			bool grounded = false;
-			foreach (WheelCollider w in m_WheelColliders) {
-				if (w.isGrounded) {
-					grounded = true;
-					m_LineEnd = transform.position;
-				}
-			}
-			if (!grounded) {
-				Debug.Log ((m_LineEnd - m_LineStart).magnitude);
-			}
-			Debug.DrawLine (m_LineStart, m_LineEnd, Color.green);
+//			bool grounded = false;
+//			foreach (WheelCollider w in m_WheelColliders) {
+//				if (w.isGrounded) {
+//					grounded = true;
+//					m_LineEnd = transform.position;
+//				}
+//			}
+//			if (!grounded) {
+//				Debug.Log ((m_LineEnd - m_LineStart).magnitude);
+//			}
+//			Debug.DrawLine (m_LineStart, m_LineEnd, Color.green);
 		}
 
 
