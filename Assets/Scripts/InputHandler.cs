@@ -36,7 +36,7 @@ public class InputHandler : MonoBehaviour
 		_axes [Axis.FLAPS] = 0.0f;
 		_axes [Axis.WHEELBRAKES] = 0.0f;
 
-		Debug.Log (XCI.GetNumPluggedCtrlrs ());
+		Debug.Log ("Found " + XCI.GetNumPluggedCtrlrs () + " connected XBox controllers.");
 	}
 	
 	// Update is called once per frame

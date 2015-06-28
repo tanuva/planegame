@@ -20,9 +20,6 @@ public class SmoothFollow : MonoBehaviour
 		height = 5.0f;
 	[SerializeField]
 	private float
-		_XAngle = 0;
-	[SerializeField]
-	private float
 		damping = 1;
 
 	private Rigidbody targetBody;
@@ -39,9 +36,6 @@ public class SmoothFollow : MonoBehaviour
 		// Early out if we don't have a target
 		if (!target)
 			return;
-
-		// TODO don't lerp from one position to the other but lerp angle and x distance separately, keeping z distance constant
-		var curPos = transform.position;
 
 		float wantedRotationAngle = target.eulerAngles.y;
 		float wantedHeight = target.position.y + height * Mathf.InverseLerp (60, 40, targetBody.velocity.magnitude);
