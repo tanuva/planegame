@@ -11,4 +11,5 @@ public interface IGUIUpdateTarget : IEventSystemHandler
 	void UpdateThrottle(float throttle);
 	void UpdateEngineThrottle(float engineThrottle);
 	void UpdateAltitude(float altitude);
+	void UpdateTargetDir(Vector3 targetDir);
 }
