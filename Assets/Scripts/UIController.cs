@@ -7,27 +7,33 @@ using System.Collections;
 /// </summary>
 public class UIController : MonoBehaviour, IGUIUpdateTarget
 {
-	public Text SpeedText;
-	public Slider ThrottleSlider;
-	public Slider EngineThrottleSlider;
-	public Text AltitudeText;
+	[SerializeField]
+	private Text m_SpeedText;
+	[SerializeField]
+	private Text m_AltitudeText;
+	[SerializeField]
+	private Slider m_ThrottleSlider;
+	[SerializeField]
+	private Slider m_EngineThrottleSlider;
 
 	public void UpdateSpeed(float speed)
 	{
-		SpeedText.text = "IAS: " + (int)(speed * 1.94f) + " kn";
+		m_SpeedText.text = "IAS: " + (int)(speed * 1.94f) + " kn";
 	}
 
 	public void UpdateThrottle(float throttle)
 	{
-		ThrottleSlider.value = throttle;
+		m_ThrottleSlider.value = throttle;
 	}
+
 	public void UpdateEngineThrottle(float engineThrottle)
 	{
-		EngineThrottleSlider.value = engineThrottle;
+		m_EngineThrottleSlider.value = engineThrottle;
 	}
+
 	public void UpdateAltitude(float altitude)
 	{
-		AltitudeText.text = "ALT: " + (int)(altitude * 3.28f) + " ft";
+		m_AltitudeText.text = "ALT: " + (int)(altitude * 3.28f) + " ft";
 	}
 
 	// Use this for initialization
