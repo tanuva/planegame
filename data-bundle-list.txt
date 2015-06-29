@@ -1,18 +1,3 @@
-Assets/Plugins
-Assets/Plugins/x86
-Assets/Plugins/x86/XInputDotNetPure.dll
-Assets/Plugins/x86/XInputDotNetPure.dll.meta
-Assets/Plugins/x86/XInputInterface.dll
-Assets/Plugins/x86/XInputInterface.dll.meta
-Assets/Plugins/x86.meta
-Assets/Plugins/x86_64
-Assets/Plugins/x86_64/XInputDotNetPure.dll
-Assets/Plugins/x86_64/XInputDotNetPure.dll.meta
-Assets/Plugins/x86_64/XInputInterface.dll
-Assets/Plugins/x86_64/XInputInterface.dll.meta
-Assets/Plugins/x86_64.meta
-Assets/Plugins/XInputDotNetPure.dll
-Assets/Plugins/XInputDotNetPure.dll.meta
 Assets/data
 Assets/data/3rdparty
 Assets/data/3rdparty/Cessna 172
@@ -20,6 +5,8 @@ Assets/data/3rdparty/Cessna 172/Cessna-172.mtl
 Assets/data/3rdparty/Cessna 172/Cessna-172.mtl.meta
 Assets/data/3rdparty/Cessna 172/Cessna-172.obj
 Assets/data/3rdparty/Cessna 172/Cessna-172.obj.meta
+Assets/data/3rdparty/Cessna 172/Cessna.prefab
+Assets/data/3rdparty/Cessna 172/Cessna.prefab.meta
 Assets/data/3rdparty/Cessna 172/License.txt
 Assets/data/3rdparty/Cessna 172/License.txt.meta
 Assets/data/3rdparty/Cessna 172/Materials
@@ -159,14 +146,38 @@ Assets/data/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs.meta
 Assets/data/Editor/CrossPlatformInput.meta
 Assets/data/Editor.meta
 Assets/data/Models
-Assets/data/Models/Flight Destination
-Assets/data/Models/Flight Destination/Target.blend
-Assets/data/Models/Flight Destination/Target.blend.meta
-Assets/data/Models/Flight Destination/Target.blend1
-Assets/data/Models/Flight Destination/Target.blend1.meta
-Assets/data/Models/Flight Destination/uvs.png
-Assets/data/Models/Flight Destination/uvs.png.meta
-Assets/data/Models/Flight Destination.meta
+Assets/data/Models/HUDTarget
+Assets/data/Models/HUDTarget/Compass Panel.prefab
+Assets/data/Models/HUDTarget/Compass Panel.prefab.meta
+Assets/data/Models/HUDTarget/HUDTarget.blend
+Assets/data/Models/HUDTarget/HUDTarget.blend.meta
+Assets/data/Models/HUDTarget/HUDTarget.blend1
+Assets/data/Models/HUDTarget/HUDTarget.blend1.meta
+Assets/data/Models/HUDTarget/Materials
+Assets/data/Models/HUDTarget/Materials/HUDTarget.mat
+Assets/data/Models/HUDTarget/Materials/HUDTarget.mat.meta
+Assets/data/Models/HUDTarget/Materials/HUDTargetRenderTexture.renderTexture
+Assets/data/Models/HUDTarget/Materials/HUDTargetRenderTexture.renderTexture.meta
+Assets/data/Models/HUDTarget/Materials/Material.mat
+Assets/data/Models/HUDTarget/Materials/Material.mat.meta
+Assets/data/Models/HUDTarget/Materials.meta
+Assets/data/Models/HUDTarget.meta
+Assets/data/Models/Target
+Assets/data/Models/Target/Materials
+Assets/data/Models/Target/Materials/Material.mat
+Assets/data/Models/Target/Materials/Material.mat.meta
+Assets/data/Models/Target/Materials.meta
+Assets/data/Models/Target/Target.blend
+Assets/data/Models/Target/Target.blend.meta
+Assets/data/Models/Target/Target.blend1
+Assets/data/Models/Target/Target.blend1.meta
+Assets/data/Models/Target/Target.prefab
+Assets/data/Models/Target/Target.prefab.meta
+Assets/data/Models/Target/TargetAnimator.controller
+Assets/data/Models/Target/TargetAnimator.controller.meta
+Assets/data/Models/Target/uvs.png
+Assets/data/Models/Target/uvs.png.meta
+Assets/data/Models/Target.meta
 Assets/data/Models.meta
 Assets/data/Scenes
 Assets/data/Scenes/1
@@ -1098,3 +1109,18 @@ Assets/data/Terrains/Terrace Island.raw.meta
 Assets/data/Terrains/Terrace Island.xcf
 Assets/data/Terrains/Terrace Island.xcf.meta
 Assets/data/Terrains.meta
+Assets/Plugins
+Assets/Plugins/x86
+Assets/Plugins/x86/XInputDotNetPure.dll
+Assets/Plugins/x86/XInputDotNetPure.dll.meta
+Assets/Plugins/x86/XInputInterface.dll
+Assets/Plugins/x86/XInputInterface.dll.meta
+Assets/Plugins/x86.meta
+Assets/Plugins/x86_64
+Assets/Plugins/x86_64/XInputDotNetPure.dll
+Assets/Plugins/x86_64/XInputDotNetPure.dll.meta
+Assets/Plugins/x86_64/XInputInterface.dll
+Assets/Plugins/x86_64/XInputInterface.dll.meta
+Assets/Plugins/x86_64.meta
+Assets/Plugins/XInputDotNetPure.dll
+Assets/Plugins/XInputDotNetPure.dll.meta
