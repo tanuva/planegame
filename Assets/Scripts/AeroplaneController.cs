@@ -51,8 +51,6 @@ namespace PlaneGame
 		[SerializeField]
 		private List<WheelCollider> m_BrakedWheels; // List of Wheels to which brake force is applied.
 
-		private Vector3 m_LineStart;
-		private Vector3 m_LineEnd;
 		private GameObject m_Canvas;
 		private float m_OriginalDrag;         // The drag when the scene starts.
 		private float m_OriginalAngularDrag;  // The angular drag when the scene starts.
@@ -97,8 +95,8 @@ namespace PlaneGame
 				}
 			}
 
-			m_LineStart = transform.position;
-			m_LineEnd = transform.position;
+			// Override flaps to "always extended"
+			Flaps = 1.0f;
 		}
 
 		public void Move (float rollInput, float pitchInput, float yawInput, float throttleInput, float flapsInput, 
