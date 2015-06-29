@@ -12,6 +12,11 @@ public enum Axis
 	WHEELBRAKES
 }
 
+public enum Button
+{
+	CHANGE_CAMERA,
+}
+
 /// <summary>
 /// Handles input for my own experimental flight model.
 /// </summary>
@@ -20,6 +25,10 @@ public class InputHandler : MonoBehaviour
 	Dictionary<Axis, float> _axes = new Dictionary<Axis, float> ();
 	public Dictionary<Axis, float> Axes {
 		get { return _axes; }
+	}
+	Dictionary<Button, bool> _buttons = new Dictionary<Button, bool> ();
+	public Dictionary<Button, bool> Buttons {
+		get { return _buttons; }
 	}
 
 	public float ThrottleChangeRate;
@@ -35,6 +44,7 @@ public class InputHandler : MonoBehaviour
 		_axes [Axis.THROTTLE] = 0.0f;
 		_axes [Axis.FLAPS] = 0.0f;
 		_axes [Axis.WHEELBRAKES] = 0.0f;
+		_buttons [Button.CHANGE_CAMERA] = false;
 
 		Debug.Log ("Found " + XCI.GetNumPluggedCtrlrs () + " connected XBox controllers.");
 	}
@@ -46,8 +56,9 @@ public class InputHandler : MonoBehaviour
 		_axes [Axis.ELEVATOR] = pickGreaterInput (XboxAxis.LeftStickY, "Pitch");
 		_axes [Axis.RUDDER] = pickGreaterInput (XboxAxis.RightStickX, "Yaw"); // TODO use triggers here
 		UpdateThrottle ();
-		UpdateFlaps ();
+//		UpdateFlaps (); // Flaps are always extended
 		UpdateWheelBrakes ();
+		UpdateButtons ();
 	}
 
 	/// <summary>
@@ -96,5 +107,14 @@ public class InputHandler : MonoBehaviour
 			current -= BrakesChangeRate * 2.0f;
 		}
 		_axes [Axis.WHEELBRAKES] = Mathf.Clamp (current, 0, 1);
+	}
+
+	void UpdateButtons ()
+	{
+		if (XCI.GetButtonUp (XboxButton.X) || Input.GetButtonUp ("ChangeCamera")) {
+			_buttons[Button.CHANGE_CAMERA] = true;
+		} else {
+			_buttons[Button.CHANGE_CAMERA] = false;
+		}
 	}
 }

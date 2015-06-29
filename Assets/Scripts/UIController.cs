@@ -17,7 +17,6 @@ public class UIController : MonoBehaviour, IGUIUpdateTarget
 	private Slider m_EngineThrottleSlider;
 
 	// Needed for target compass calculations
-	private Transform m_MainCameraTf;
 	private Transform m_HUDTargetTf;
 
 	public void UpdateSpeed(float speed)
@@ -40,7 +39,7 @@ public class UIController : MonoBehaviour, IGUIUpdateTarget
 		m_AltitudeText.text = "ALT: " + (int)(altitude * 3.28f) + " ft";
 	}
 
-	public void UpdateTargetDir(Vector3 targetDir)
+	public void UpdateTargetDir(Vector3 targetDir, Quaternion cameraRotation)
 	{
 		// This is a little ugly, but it works.
 		// Cleaner approach: leave the compass camera static and properly calculate the compassTarget rotation to match
@@ -48,11 +47,10 @@ public class UIController : MonoBehaviour, IGUIUpdateTarget
 		// lots of brain knots instead.
 		
 		// Set compass camera rotation to the same as the main camera - excluding pitch!
-		Quaternion mainCamNoPitch = m_MainCameraTf.rotation;
-		Vector3 eulers = mainCamNoPitch.eulerAngles;
+		Vector3 eulers = cameraRotation.eulerAngles;
 		eulers.x = 0f;
-		mainCamNoPitch.eulerAngles = eulers;
-		m_HUDTargetTf.parent.rotation =  mainCamNoPitch;
+		cameraRotation.eulerAngles = eulers;
+		m_HUDTargetTf.parent.rotation = cameraRotation;
 		// Point the target at the desired direction
 		m_HUDTargetTf.rotation = Quaternion.LookRotation (targetDir);
 	}
@@ -60,12 +58,7 @@ public class UIController : MonoBehaviour, IGUIUpdateTarget
 	// Use this for initialization
 	void Start ()
 	{
-		var tmp = GameObject.Find ("Main Camera");
-		if (!tmp) {
-			throw new UnityException("Main Camera not found");
-		}
-		m_MainCameraTf = tmp.transform;
-		tmp = GameObject.Find ("HUDTarget");
+		var tmp = GameObject.Find ("HUDTarget");
 		if (!tmp) {
 			throw new UnityException("HUDTarget not found");
 		}

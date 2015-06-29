@@ -6,6 +6,7 @@ using System.Collections;
 /// JobManager keeps track of our current job and handles pickup/delivery.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CameraSwitcher))]
 public class JobManager : MonoBehaviour, IJobExecutionTarget
 {
 	[SerializeField]
@@ -52,7 +53,8 @@ public class JobManager : MonoBehaviour, IJobExecutionTarget
 	void UpdateCompass ()
 	{
 		ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
-			t.UpdateTargetDir(m_CurrentDestination.transform.position - gameObject.transform.position)
+			t.UpdateTargetDir(m_CurrentDestination.transform.position - gameObject.transform.position,
+		                  gameObject.GetComponent<CameraSwitcher> ().ActiveCamera.transform.rotation)
 		));
 	}
 
