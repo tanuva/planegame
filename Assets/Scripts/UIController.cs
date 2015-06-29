@@ -14,6 +14,8 @@ namespace PlaneGame
 		[SerializeField]
 		private Text m_AltitudeText;
 		[SerializeField]
+		private Text m_CashText;
+		[SerializeField]
 		private Slider m_ThrottleSlider;
 		[SerializeField]
 		private Slider m_EngineThrottleSlider;
@@ -55,6 +57,11 @@ namespace PlaneGame
 			m_HUDTargetTf.parent.rotation = cameraRotation;
 			// Point the target at the desired direction
 			m_HUDTargetTf.rotation = Quaternion.LookRotation (targetDir);
+		}
+
+		public void SetCash(int amount)
+		{
+			m_CashText.text = "Cash: " + amount.ToString ();
 		}
 
 		// Use this for initialization

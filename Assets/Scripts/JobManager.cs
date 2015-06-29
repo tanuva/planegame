@@ -13,15 +13,14 @@ namespace PlaneGame
 	{
 		[SerializeField]
 		private GameObject m_CurrentDestination;
-		[SerializeField]
 		private int m_jobId = 0;
 		[SerializeField]
 		private float m_SqrVelThreshold = 0.1f;
 		private GameObject m_MsgDispatcher;
 		private GameObject m_Canvas;
-		// TODO This is only needed as long as the JobGenerator doesn't enforce *different* pickup/dropoff airports.
 		private bool m_JustLoaded = false; // Used to load only once at every airport.
 		private bool m_AtAirport = false;
+		private int m_Cash = 0;
 
 		public void AssignJob(GameObject destination, int jobId)
 		{
@@ -41,6 +40,9 @@ namespace PlaneGame
 			if (!m_Canvas) {
 				throw new UnityException("Canvas not found");
 			}
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
+				t.SetCash (m_Cash)
+			));
 		}
 		
 		// Update is called once per frame
@@ -62,7 +64,6 @@ namespace PlaneGame
 
 		void OnTriggerEnter (Collider other)
 		{
-			Debug.Log("Trigger enter: " + other.transform.parent.gameObject.name, this);
 			// TODO Can this crash if other.transform has no parent?
 			if (m_CurrentDestination == other.transform.parent.gameObject) {
 				m_AtAirport = true;
@@ -73,7 +74,10 @@ namespace PlaneGame
 		{
 			if (m_AtAirport && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < m_SqrVelThreshold) {
 				// We're at an airport and slow enough to load/unload
-				ExecuteEvents.Execute<IJobIssuerTarget>(m_MsgDispatcher, null, (t, y) => (t.DeliverJob(m_jobId)));
+				ExecuteEvents.Execute<IJobIssuerTarget>(m_MsgDispatcher, null, (t, y) => (m_Cash = t.DeliverJob(m_jobId)));
+				ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
+					t.SetCash (m_Cash)
+				));
 				m_JustLoaded = true;
 			}
 		}

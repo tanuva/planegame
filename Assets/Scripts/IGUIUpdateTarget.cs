@@ -14,5 +14,6 @@ namespace PlaneGame
 		void UpdateEngineThrottle(float engineThrottle);
 		void UpdateAltitude(float altitude);
 		void UpdateTargetDir(Vector3 targetDir, Quaternion cameraRotation);
+		void SetCash(int amount);
 	}
 }

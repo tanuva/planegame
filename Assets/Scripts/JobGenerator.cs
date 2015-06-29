@@ -13,7 +13,7 @@ namespace PlaneGame
 		GameObject[] m_Airports;
 		Dictionary<int, GameObject> m_AvailableJobs;
 
-		public void DeliverJob(int id)
+		public int DeliverJob(int id)
 		{
 			if (m_AvailableJobs.ContainsKey (id)) {
 				// Weee!
@@ -21,7 +21,10 @@ namespace PlaneGame
 				m_AvailableJobs[id].transform.FindChild ("Target").gameObject.SetActive (false);
 				AssignNextJob(m_AvailableJobs[id]);
 				m_AvailableJobs.Remove (id);
+				return 100;
 			}
+
+			return 0;
 		}
 
 		// Use this for initialization

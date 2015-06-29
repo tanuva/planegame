@@ -9,7 +9,12 @@ namespace PlaneGame
 	/// </summary>
 	public interface IJobIssuerTarget : IEventSystemHandler
 	{
-		void DeliverJob(int id);
+		/// <summary>
+		/// Delivers the job and returns the loan.
+		/// </summary>
+		/// <returns>The loan</returns>
+		/// <param name="id">Job id</param>
+		int DeliverJob(int id);
 	}
 
 	/// <summary>
