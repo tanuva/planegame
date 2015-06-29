@@ -72,6 +72,8 @@ Assets/data/3rdparty/ConvertedBoxcar/Materials/converted_boxcar.mat
 Assets/data/3rdparty/ConvertedBoxcar/Materials/converted_boxcar.mat.meta
 Assets/data/3rdparty/ConvertedBoxcar/Materials.meta
 Assets/data/3rdparty/ConvertedBoxcar/Prefabs
+Assets/data/3rdparty/ConvertedBoxcar/Prefabs/Converted Boxcar.prefab
+Assets/data/3rdparty/ConvertedBoxcar/Prefabs/Converted Boxcar.prefab.meta
 Assets/data/3rdparty/ConvertedBoxcar/Prefabs/converted_boxcar.prefab
 Assets/data/3rdparty/ConvertedBoxcar/Prefabs/converted_boxcar.prefab.meta
 Assets/data/3rdparty/ConvertedBoxcar/Prefabs.meta
@@ -120,6 +122,8 @@ Assets/data/3rdparty/RadioTower/Meshes/RadioTowerCollider_FBX.FBX
 Assets/data/3rdparty/RadioTower/Meshes/RadioTowerCollider_FBX.FBX.meta
 Assets/data/3rdparty/RadioTower/Meshes.meta
 Assets/data/3rdparty/RadioTower/Prefab
+Assets/data/3rdparty/RadioTower/Prefab/Broken RadioTower.prefab
+Assets/data/3rdparty/RadioTower/Prefab/Broken RadioTower.prefab.meta
 Assets/data/3rdparty/RadioTower/Prefab/RadioTower.prefab
 Assets/data/3rdparty/RadioTower/Prefab/RadioTower.prefab.meta
 Assets/data/3rdparty/RadioTower/Prefab.meta
@@ -145,6 +149,8 @@ Assets/data/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs
 Assets/data/Editor/CrossPlatformInput/CrossPlatformInputInitialize.cs.meta
 Assets/data/Editor/CrossPlatformInput.meta
 Assets/data/Editor.meta
+Assets/data/Main Camera.prefab
+Assets/data/Main Camera.prefab.meta
 Assets/data/Models
 Assets/data/Models/HUDTarget
 Assets/data/Models/HUDTarget/Compass Panel.prefab
@@ -189,6 +195,8 @@ Assets/data/Scenes/1.meta
 Assets/data/Scenes/1.unity
 Assets/data/Scenes/1.unity.meta
 Assets/data/Scenes.meta
+Assets/data/Sounds
+Assets/data/Sounds/cash_register.mp3
 Assets/data/Standard Assets
 Assets/data/Standard Assets/CrossPlatformInput
 Assets/data/Standard Assets/CrossPlatformInput/CrossPlatformInputGuidelines.txt
