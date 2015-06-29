@@ -8,15 +8,16 @@ using System.Collections.Generic;
 public class JobGenerator : MonoBehaviour, IJobIssuerTarget {
 	GameObject m_Player;
 	GameObject[] m_Airports;
-	List<int> m_AvailableJobs;
+	Dictionary<int, GameObject> m_AvailableJobs;
 
 	public void DeliverJob(int id)
 	{
-		if (m_AvailableJobs.Contains(id)) {
+		if (m_AvailableJobs.ContainsKey (id)) {
 			// Weee!
 			// TODO destroy target arrow GO
 			Debug.Log("Delivered job " + id);
-			AssignNextJob(m_Player);
+			AssignNextJob(m_AvailableJobs[id]);
+			m_AvailableJobs.Remove (id);
 		}
 	}
 
@@ -31,10 +32,9 @@ public class JobGenerator : MonoBehaviour, IJobIssuerTarget {
 		if (m_Airports.Length < 1) {
 			throw new UnityException("Couldn't find airports");
 		}
-		// This is not strictly necessary, but we probably want multiple jobs later
-		m_AvailableJobs = new List<int>(1);
-
-		AssignNextJob(m_Player);
+		// The capacity is not strictly necessary, but we probably want multiple jobs later
+		m_AvailableJobs = new Dictionary<int, GameObject> (1);
+		AssignNextJob(null);
 	}
 	
 	// Update is called once per frame
@@ -42,15 +42,21 @@ public class JobGenerator : MonoBehaviour, IJobIssuerTarget {
 	{
 	}
 
-	void AssignNextJob(GameObject target)
+	void AssignNextJob(GameObject lastDestination)
 	{
-		// TODO Allow deliveries to the same airport for now as we only have one...
 		// TODO Instantiate target arrow GO
-		int destinationIndex = Random.Range(0, m_Airports.Length);
+		// Make sure the new destination is different from the current location.
+		// (Would be quite a nonsensical job, wouldn't it?)
+		GameObject destination;
+		do {
+			int destinationIndex = Random.Range(0, m_Airports.Length);
+			destination = m_Airports[destinationIndex];
+		} while (destination == lastDestination);
+
 		int jobId = Random.Range(0, int.MaxValue); // The inspector doesn't like uints
-		m_AvailableJobs.Add(jobId);
+		m_AvailableJobs.Add(jobId, destination);
 		ExecuteEvents.Execute<IJobExecutionTarget>(m_Player, null, (t, y) => (
-			t.AssignJob(m_Airports[destinationIndex], jobId)
+			t.AssignJob(destination, jobId)
 		));
 		Debug.Log("Assigned job " + jobId);
 	}
