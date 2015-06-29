@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Implementation of a PID controller.
-/// </summary>
-public class PID
+namespace PlaneGame
 {
-	// Internal State
-	float dState;
-	float iState;
-	// User Supplied
-	public float IMin = -100;
-	public float IMax = 100;
-	public float PGain;
-	public float IGain;
-	public float DGain;
-
-	public float Update (float error, float curPos)
+	/// <summary>
+	/// Implementation of a PID controller.
+	/// </summary>
+	public class PID
 	{
-		float pTerm = PGain * error;
-		iState += error;
-//		iState = Mathf.Clamp (iState, IMin, IMax);
-		float iTerm = IGain * iState;
-		float dTerm = DGain * (curPos - dState);
-		dState = curPos;
-		return pTerm + iTerm - dTerm;
+		// Internal State
+		float dState;
+		float iState;
+		// User Supplied
+		public float IMin = -100;
+		public float IMax = 100;
+		public float PGain;
+		public float IGain;
+		public float DGain;
+
+		public float Update (float error, float curPos)
+		{
+			float pTerm = PGain * error;
+			iState += error;
+	//		iState = Mathf.Clamp (iState, IMin, IMax);
+			float iTerm = IGain * iState;
+			float dTerm = DGain * (curPos - dState);
+			dState = curPos;
+			return pTerm + iTerm - dTerm;
+		}
 	}
 }
