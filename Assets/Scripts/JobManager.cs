@@ -21,6 +21,9 @@ namespace PlaneGame
 		private bool m_JustLoaded = false; // Used to load only once at every airport.
 		private bool m_AtAirport = false;
 		private int m_Cash = 0;
+		private AudioSource m_AudioSource;
+		[SerializeField]
+		private AudioClip m_ClipJobComplete;
 
 		public void AssignJob(GameObject destination, int jobId)
 		{
@@ -43,6 +46,11 @@ namespace PlaneGame
 			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
 				t.SetCash (m_Cash)
 			));
+
+			m_AudioSource = gameObject.AddComponent<AudioSource> ();
+			m_AudioSource.playOnAwake = false;
+			m_AudioSource.loop = false;
+			m_AudioSource.clip = m_ClipJobComplete;
 		}
 		
 		// Update is called once per frame
@@ -74,10 +82,11 @@ namespace PlaneGame
 		{
 			if (m_AtAirport && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < m_SqrVelThreshold) {
 				// We're at an airport and slow enough to load/unload
-				ExecuteEvents.Execute<IJobIssuerTarget>(m_MsgDispatcher, null, (t, y) => (m_Cash = t.DeliverJob(m_jobId)));
+				ExecuteEvents.Execute<IJobIssuerTarget>(m_MsgDispatcher, null, (t, y) => (m_Cash += t.DeliverJob(m_jobId)));
 				ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
 					t.SetCash (m_Cash)
 				));
+				m_AudioSource.Play ();
 				m_JustLoaded = true;
 			}
 		}
