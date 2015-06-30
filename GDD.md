@@ -61,4 +61,5 @@ If I had someone doing artwork, I'd like to see this in a steampunk scenario. Ma
 		- reset plane: rotates the plane upright and sets it 5 meters or so up from current location
 
 # Attributions
-- Cessna Model: by 3dregenerator. Free for personal and educational use.
+- Cessna model: by 3dregenerator. Free for personal and educational use.
+- Cash register sound: by kiddpark on [freesound.org](http://freesound.org/people/kiddpark/sounds/201159/)
