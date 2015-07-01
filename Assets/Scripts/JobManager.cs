@@ -16,8 +16,7 @@ namespace PlaneGame
 		private int m_jobId = 0;
 		[SerializeField]
 		private float m_SqrVelThreshold = 0.1f;
-		private GameObject m_MsgDispatcher;
-		private GameObject m_Canvas;
+		private GameObject m_GameManager;
 		private bool m_JustLoaded = false; // Used to load only once at every airport.
 		private bool m_AtAirport = false;
 		private int m_Cash = 0;
@@ -35,15 +34,11 @@ namespace PlaneGame
 		// Use this for initialization
 		void Start ()
 		{
-			m_MsgDispatcher = GameObject.Find("MessageDispatcher");
-			if (!m_MsgDispatcher) {
-				throw new UnityException("MessageDispatcher not found");
+			m_GameManager = GameObject.Find("GameManager");
+			if (!m_GameManager) {
+				throw new UnityException("GameManager not found");
 			}
-			m_Canvas = GameObject.Find("Canvas");
-			if (!m_Canvas) {
-				throw new UnityException("Canvas not found");
-			}
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (
 				t.SetCash (m_Cash)
 			));
 
@@ -57,14 +52,12 @@ namespace PlaneGame
 		void Update ()
 		{
 			UpdateCompass ();
-			if (!m_JustLoaded) {
-				UpdateCargoArea ();
-			}
+			UpdateCargoArea ();
 		}
 
 		void UpdateCompass ()
 		{
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (
 				t.UpdateTargetDir(m_CurrentDestination.transform.position - gameObject.transform.position,
 			                  gameObject.GetComponent<CameraSwitcher> ().ActiveCamera.transform.rotation)
 			));
@@ -80,12 +73,13 @@ namespace PlaneGame
 
 		void UpdateCargoArea ()
 		{
-			if (m_AtAirport && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < m_SqrVelThreshold) {
+			if (!m_JustLoaded 
+			    && m_AtAirport 
+			    && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < m_SqrVelThreshold) {
+				Debug.Log ("dropoff");
 				// We're at an airport and slow enough to load/unload
-				ExecuteEvents.Execute<IJobIssuerTarget>(m_MsgDispatcher, null, (t, y) => (m_Cash += t.DeliverJob(m_jobId)));
-				ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (
-					t.SetCash (m_Cash)
-				));
+				ExecuteEvents.Execute<IJobIssuerTarget>(m_GameManager, null, (t, y) => (m_Cash += t.DeliverJob(m_jobId)));
+				ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.SetCash (m_Cash)));
 				m_AudioSource.Play ();
 				m_JustLoaded = true;
 			}

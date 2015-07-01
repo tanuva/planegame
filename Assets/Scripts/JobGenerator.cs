@@ -17,9 +17,9 @@ namespace PlaneGame
 		{
 			if (m_AvailableJobs.ContainsKey (id)) {
 				// Weee!
-				Debug.Log("Delivered job " + id);
+				Debug.Log ("Delivered job " + id);
 				m_AvailableJobs[id].transform.FindChild ("Target").gameObject.SetActive (false);
-				AssignNextJob(m_AvailableJobs[id]);
+				AssignNextJob (m_AvailableJobs[id]);
 				m_AvailableJobs.Remove (id);
 				return 100;
 			}
@@ -70,7 +70,6 @@ namespace PlaneGame
 			ExecuteEvents.Execute<IJobExecutionTarget>(m_Player, null, (t, y) => (
 				t.AssignJob(destination, jobId)
 			));
-			Debug.Log("Assigned job " + jobId);
 		}
 	}
 }

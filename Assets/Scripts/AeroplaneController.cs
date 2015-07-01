@@ -51,7 +51,7 @@ namespace PlaneGame
 		[SerializeField]
 		private List<WheelCollider> m_BrakedWheels; // List of Wheels to which brake force is applied.
 
-		private GameObject m_Canvas;
+		private GameObject m_GameManager;
 		private float m_OriginalDrag;         // The drag when the scene starts.
 		private float m_OriginalAngularDrag;  // The angular drag when the scene starts.
 		private float m_AeroFactor;
@@ -80,7 +80,7 @@ namespace PlaneGame
 
 		private void Start ()
 		{
-			m_Canvas = GameObject.Find("Canvas");
+			m_GameManager = GameObject.Find("GameManager");
 			m_Rigidbody = GetComponent<Rigidbody> ();
 			m_Rigidbody.centerOfMass = CenterOfMass.localPosition;
 			// Store original drag settings, these are modified during flight.
@@ -124,7 +124,7 @@ namespace PlaneGame
 			CalculateAltitude ();
 			UpdateWheels ();
 
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateSpeed(ForwardSpeed)));
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.UpdateSpeed(ForwardSpeed)));
 
 			// Draw a line that helps determine necessary runway lengths.
 //			bool grounded = false;
@@ -213,13 +213,13 @@ namespace PlaneGame
 
 			// current engine power is just:
 			EnginePower = Throttle * m_MaxEnginePower;
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateThrottle(ThrottleInput)));
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.UpdateThrottle(ThrottleInput)));
 		}
 
 		private void ControlFlaps ()
 		{
 			Flaps = Mathf.Clamp01 (Mathf.Lerp (Flaps, FlapsInput, m_FlapsChangeSpeed * Time.deltaTime));
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateEngineThrottle(FlapsInput)));
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.UpdateEngineThrottle(FlapsInput)));
 		}
 
 		private void CalculateDrag ()
@@ -312,7 +312,7 @@ namespace PlaneGame
 //			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateAltitude(Altitude)));
 
 			// Why are we even doing this raycast complexity?
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_Canvas, null, (t, y) => (t.UpdateAltitude(transform.position.y)));
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.UpdateAltitude(transform.position.y)));
 		}
 
 		private void UpdateWheels ()
