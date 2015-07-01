@@ -17,7 +17,6 @@ namespace PlaneGame
 		[SerializeField]
 		private float m_SqrVelThreshold = 0.1f;
 		private GameObject m_GameManager;
-		private bool m_JustLoaded = false; // Used to load only once at every airport.
 		private bool m_AtAirport = false;
 		private int m_Cash = 0;
 		private AudioSource m_AudioSource;
@@ -73,22 +72,22 @@ namespace PlaneGame
 
 		void UpdateCargoArea ()
 		{
-			if (!m_JustLoaded 
-			    && m_AtAirport 
+			if (m_AtAirport 
 			    && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < m_SqrVelThreshold) {
-				Debug.Log ("dropoff");
 				// We're at an airport and slow enough to load/unload
 				ExecuteEvents.Execute<IJobIssuerTarget>(m_GameManager, null, (t, y) => (m_Cash += t.DeliverJob(m_jobId)));
 				ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.SetCash (m_Cash)));
 				m_AudioSource.Play ();
-				m_JustLoaded = true;
+
+				// OnTriggerExit cannot be used to "leave" the airport because the target GO is destroyed after the
+				// job was delivered.
+				m_AtAirport = false;
 			}
 		}
 
 		void OnTriggerExit (Collider other)
 		{
 			if (other.transform.parent.gameObject.CompareTag ("Airport")) {
-				m_JustLoaded = false;
 				m_AtAirport = false;
 			}
 		}
