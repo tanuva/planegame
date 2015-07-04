@@ -12,9 +12,9 @@ namespace PlaneGame
 		/// <summary>
 		/// Delivers the job and returns the loan.
 		/// </summary>
-		/// <returns>The loan</returns>
-		/// <param name="id">Job id</param>
-		int DeliverJob(int id);
+		/// <returns>True if the job was completed successfully.</returns>
+		/// <param name="job">Job</param>
+		bool DeliverJob(Job job);
 	}
 
 	/// <summary>
@@ -22,6 +22,6 @@ namespace PlaneGame
 	/// </summary>
 	public interface IJobExecutionTarget : IEventSystemHandler
 	{
-		void AssignJob(GameObject destination, int jobId);
+		void AssignJob(Job job);
 	}
 }

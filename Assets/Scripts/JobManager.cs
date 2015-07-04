@@ -12,8 +12,7 @@ namespace PlaneGame
 	public class JobManager : MonoBehaviour, IJobExecutionTarget
 	{
 		[SerializeField]
-		private GameObject m_CurrentDestination;
-		private int m_jobId = 0;
+		private Job m_currentJob;
 		[SerializeField]
 		private float m_SqrVelThreshold = 0.1f;
 		private GameObject m_GameManager;
@@ -23,11 +22,10 @@ namespace PlaneGame
 		[SerializeField]
 		private AudioClip m_ClipJobComplete;
 
-		public void AssignJob(GameObject destination, int jobId)
+		public void AssignJob(Job job)
 		{
-			m_CurrentDestination = destination;
-			m_jobId = jobId;
-			Debug.Log("New destination: " + m_CurrentDestination.name, this);
+			m_currentJob = job;
+			Debug.Log("New destination: " + m_currentJob.Destination.name);
 		}
 
 		// Use this for initialization
@@ -37,9 +35,10 @@ namespace PlaneGame
 			if (!m_GameManager) {
 				throw new UnityException("GameManager not found");
 			}
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (
-				t.SetCash (m_Cash)
-			));
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, 
+			                                        delegate(IGUIUpdateTarget handler, BaseEventData eventData) {
+				handler.SetCash (m_Cash);
+			});
 
 			m_AudioSource = gameObject.AddComponent<AudioSource> ();
 			m_AudioSource.playOnAwake = false;
@@ -56,16 +55,17 @@ namespace PlaneGame
 
 		void UpdateCompass ()
 		{
-			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (
-				t.UpdateTargetDir(m_CurrentDestination.transform.position - gameObject.transform.position,
-			                  gameObject.GetComponent<CameraSwitcher> ().ActiveCamera.transform.rotation)
-			));
+			ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, 
+			                                        delegate(IGUIUpdateTarget handler, BaseEventData eventData) {
+				handler.UpdateTargetDir(m_currentJob.Destination.transform.position - gameObject.transform.position,
+				                        gameObject.GetComponent<CameraSwitcher> ().ActiveCamera.transform.rotation);
+			});
 		}
 
 		void OnTriggerEnter (Collider other)
 		{
 			// TODO Can this crash if other.transform has no parent?
-			if (m_CurrentDestination == other.transform.parent.gameObject) {
+			if (m_currentJob.Destination == other.transform.parent.gameObject) {
 				m_AtAirport = true;
 			}
 		}
@@ -75,8 +75,16 @@ namespace PlaneGame
 			if (m_AtAirport 
 			    && gameObject.GetComponent<Rigidbody>().velocity.sqrMagnitude < m_SqrVelThreshold) {
 				// We're at an airport and slow enough to load/unload
-				ExecuteEvents.Execute<IJobIssuerTarget>(m_GameManager, null, (t, y) => (m_Cash += t.DeliverJob(m_jobId)));
-				ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, (t, y) => (t.SetCash (m_Cash)));
+				ExecuteEvents.Execute<IJobIssuerTarget>(m_GameManager, null,
+				                                        delegate(IJobIssuerTarget handler, BaseEventData eventData) {
+					if (handler.DeliverJob(m_currentJob)) {
+						m_Cash += m_currentJob.Pay;
+					}
+				});
+				ExecuteEvents.Execute<IGUIUpdateTarget>(m_GameManager, null, 
+				                                        delegate(IGUIUpdateTarget handler, BaseEventData eventData) {
+					handler.SetCash (m_Cash);
+				});
 				m_AudioSource.Play ();
 
 				// OnTriggerExit cannot be used to "leave" the airport because the target GO is destroyed after the
