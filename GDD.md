@@ -8,15 +8,15 @@ The basic concept is kept very simple so that I at least have a chance to finish
 	- Not Australia. Too much detail, too much work to make it nice. Its easier to create a very simplistic (terraced height levels) island from scratch.
 
 	Advantage: interesting flights over terrain of varying height. Stylized terrain allows for more *creative* decoration without breaking immersion.
-- TODO At least land/sea textures (do a little more painting)
-	- Land is mostly painted, sea still a little grassy
+- At least land/sea textures (do a little more painting)
+	- Land is mostly painted, sea has sand ground. Makes the heightmap borders all too visible...
 - TODO Dome enforcing level borders (magic grid shader?)
 - 3 airports, needing prefabs
 	- tower: simple radio tower with blinkenlight on top
-	- TODO airport building
-	- TODO glowing(?) downward arrow
-		- Just use the radio tower's blinkenlight instead of a separate arrow. Still needs a *delivery drop-off area* marked somehow.
-	- TODO runway
+	- airport buildings: using abandoned boxcar and gas station models as placeholder
+	- TODO glowing downward arrow
+		- Arrow appears as commanded, has actual rotation animation. Still needs a nice material shader.
+	- runway
 		- Just paint it on the ground, that island doesn't have any paved roads anyway
 
 ### Notes
@@ -24,10 +24,11 @@ The basic concept is kept very simple so that I at least have a chance to finish
 
 # Gameplay
 - 1 playable plane
-- TODO random deliveries
+- random deliveries
 	- Pick up at one airport, drop off at another
 	- Rewards? Money for fuel? Some kind of turbo? - Turbo would be possible to implement in this version. Fuel is *optional*.
-- TODO cockpit view? Only if bearable without extra geometry
+- cockpit view? Only if bearable without extra geometry
+	- Not really nice, but makes precise landings easier and flying more fun!
 - TODO plane breaking due to overspeed or unexpected landings
 	- (At least particle smoke)
 	- Allowing for absurd maneuvers is quite cool. Test a little.
