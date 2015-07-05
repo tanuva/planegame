@@ -86,7 +86,7 @@ namespace PlaneGame
 			} else if (XCI.GetButton (XboxButton.LeftBumper) || Input.GetButton ("Thrust-")) {
 				throttle -= ThrottleChangeRate;
 			}
-			_axes [Axis.THROTTLE] = Mathf.Clamp (throttle, -1, 1);
+			_axes [Axis.THROTTLE] = Mathf.Clamp (throttle, 0, 1);
 		}
 
 		void UpdateFlaps ()

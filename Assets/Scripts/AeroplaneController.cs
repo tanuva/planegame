@@ -147,7 +147,7 @@ namespace PlaneGame
 			RollInput = Mathf.Clamp (RollInput, -1, 1);
 			PitchInput = Mathf.Clamp (PitchInput, -1, 1);
 			YawInput = Mathf.Clamp (YawInput, -1, 1);
-			ThrottleInput = Mathf.Clamp (ThrottleInput, -1, 1);
+			ThrottleInput = Mathf.Clamp (ThrottleInput, 0, 1);
 		}
 
 
@@ -202,11 +202,6 @@ namespace PlaneGame
 
 		private void ControlThrottle ()
 		{
-			// override throttle if immobilized
-			if (m_Immobilized) {
-				ThrottleInput = -0.5f;
-			}
-
 			// Adjust throttle based on throttle input (or immobilized state)
 			Throttle = Mathf.Clamp01 (Mathf.Lerp (Throttle, ThrottleInput, m_ThrottleChangeSpeed * Time.deltaTime));
 //			Throttle = Mathf.Clamp01 (Throttle + ThrottleInput * Time.deltaTime * m_ThrottleChangeSpeed);
