@@ -47,9 +47,11 @@ namespace PlaneGame
 		[SerializeField]
 		private float m_FlapsChangeSpeed = 0.1f;
 		[SerializeField]
-		private WheelCollider m_NoseWheel;
+		private float m_MaxNoseWheelAngle = 45f;
 		[SerializeField]
-		private List<WheelCollider> m_BrakedWheels; // List of Wheels to which brake force is applied.
+		private List<WheelCollider> m_SteeredWheels; // List of wheels to which steering is applied.
+		[SerializeField]
+		private List<WheelCollider> m_BrakedWheels; // List of wheels to which brake force is applied.
 
 		private GameObject m_GameManager;
 		private float m_OriginalDrag;         // The drag when the scene starts.
@@ -87,13 +89,7 @@ namespace PlaneGame
 			m_OriginalDrag = m_Rigidbody.drag;
 			m_OriginalAngularDrag = m_Rigidbody.angularDrag;
 
-			// Keep those wheel colliders awake
 			m_WheelColliders = transform.GetComponentsInChildren<WheelCollider> ();
-			for (int i = 0; i < transform.childCount; i++) {
-				foreach (var componentsInChild in m_WheelColliders) {
-					componentsInChild.motorTorque = 0.0001f;
-				}
-			}
 
 			// Override flaps to "always extended"
 			Flaps = 1.0f;
@@ -312,7 +308,20 @@ namespace PlaneGame
 
 		private void UpdateWheels ()
 		{
-			m_NoseWheel.steerAngle = 45 * YawInput;
+			// Allow the wheels to sleep if the plane is not moving.
+			// TODO Wheels don't seem to go to sleep as expected.
+			// TODO Does this conflict with RigidbodyDragger?
+			foreach (var wheel in m_WheelColliders) {
+				if (Throttle > 0.001f) {
+					wheel.motorTorque = 0.0001f;
+				} else {
+					wheel.motorTorque = 0;
+				}
+			}
+
+			foreach (WheelCollider wheel in m_SteeredWheels) {
+				wheel.steerAngle = m_MaxNoseWheelAngle * YawInput;
+			}
 			foreach (WheelCollider wheel in m_BrakedWheels) {
 				wheel.brakeTorque = m_WheelBrakesTorque * WheelBrakes;
 			}
