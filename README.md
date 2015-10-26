@@ -8,3 +8,10 @@ To find out what I have planned take a look at the [game design doc](https://git
 To actually run the game, you'll need an additional big blob of binary data that can be [downloaded separately](https://nightsoul.org/files/planegame_data.zip). This is done so that the binary data doesn't clutter the repository too much.
 
 I use the command `zip planegame_data.tar.gz -@ < data-bundle-list.txt` to build that data package. The list was generated using `find Assets/data` and `find Assets/Plugins` and removing `.DS_Store` files manually afterwards. Yes, this sucks, but I'd have to learn more find foo to fix that. The pain's just not big enough yet. :)
+
+# Screenshots
+Everyone loves pictures!
+![In flight towards Broken Tower Airport](https://github.com/tanuva/planegame/blob/master/Screenshots/2015-10 inflight-brokentower.png)
+![Approaching Boxcar Intl.](https://github.com/tanuva/planegame/blob/master/Screenshots/2015-10 approach-boxcar-intl.png)
+![Ready for take off!](https://github.com/tanuva/planegame/blob/master/Screenshots/2015-10 rfto-boxcar-intl.png)
+
