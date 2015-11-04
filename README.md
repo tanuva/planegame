@@ -4,7 +4,7 @@ This is a clone of a hobbyist game I loved years ago. I think I found that on th
 
 To find out what I have planned take a look at the [game design doc](https://github.com/tanuva/planegame/blob/master/GDD.md). Attribution for external resources can be found there, too.
 
-Download a current (4 Nov 2015) standalone build for [OS X](https://nightsoul.org/files/planegame.app.zip), [Linux](https://nightsoul.org/files/planegame.tar.gz) and [Windows](https://nightsoul.org/files/planegame.exe.zip) and try it!
+Download a current (4 Nov 2015) standalone build for [OS X](https://nightsoul.org/files/planegame.app.zip), [Linux](https://nightsoul.org/files/planegame.tar.gz) or [Windows](https://nightsoul.org/files/planegame.exe.zip) and try it!
 
 ## Controls
 There is no ingame help yet. You may configure keys through the Unity player configuration at startup (scroll down a little, lotsa XBox controller axes). The most important (and only) keys are these:
